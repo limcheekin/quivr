@@ -2,16 +2,16 @@
 BEGIN;
 
 -- Drop the old function if exists
-DROP FUNCTION IF EXISTS match_vectors(VECTOR(1536), INT, TEXT);
+DROP FUNCTION IF EXISTS match_vectors(VECTOR(1024), INT, TEXT);
 
 -- Create the new function
-CREATE OR REPLACE FUNCTION match_vectors(query_embedding VECTOR(1536), match_count INT, p_brain_id UUID)
+CREATE OR REPLACE FUNCTION match_vectors(query_embedding VECTOR(1024), match_count INT, p_brain_id UUID)
 RETURNS TABLE(
     id BIGINT,
     brain_id UUID,
     content TEXT,
     metadata JSONB,
-    embedding VECTOR(1536),
+    embedding VECTOR(1024),
     similarity FLOAT
 ) LANGUAGE plpgsql AS $$
 #variable_conflict use_column

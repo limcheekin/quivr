@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
-from langchain.embeddings.openai import OpenAIEmbeddings
+from open.text.embeddings.openai import OpenAIEmbeddings
 from langchain.schema import Document
 from llm.utils.summarization import llm_summerize
 from logger import get_logger
@@ -19,8 +19,10 @@ class Neurons(BaseModel):
         logger.info("Creating vector for document")
         logger.info(f"Document: {doc}")
         if user_openai_api_key:
+            import os
             self.commons["documents_vector_store"]._embedding = OpenAIEmbeddings(
-                openai_api_key=user_openai_api_key
+                openai_api_key=user_openai_api_key,
+                openai_api_base=os.environ["EMBEDDINGS_API_BASE"]
             )
         try:
             sids = self.commons["documents_vector_store"].add_documents([doc])

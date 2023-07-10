@@ -5,7 +5,7 @@ from typing import AsyncIterable, Awaitable
 from langchain.chains import ConversationalRetrievalChain, LLMChain
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
+from open.text.embeddings.openai import OpenAIEmbeddings
 from langchain.llms.base import LLM
 from logger import get_logger
 from models.chat import ChatHistory
@@ -59,7 +59,8 @@ class OpenAIBrainPicking(BaseBrainPicking):
 
     @property
     def embeddings(self) -> OpenAIEmbeddings:
-        return OpenAIEmbeddings(openai_api_key=self.openai_api_key)
+        import os
+        return OpenAIEmbeddings(openai_api_key=self.openai_api_key, openai_api_base=os.environ["EMBEDDINGS_API_BASE"])
 
     @property
     def supabase_client(self) -> Client:

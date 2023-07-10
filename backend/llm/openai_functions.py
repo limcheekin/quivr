@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Optional
 
 from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
+from open.text.embeddings.openai import OpenAIEmbeddings
 from llm.models.FunctionCall import FunctionCall
 from llm.models.OpenAiAnswer import OpenAiAnswer
 from logger import get_logger
@@ -65,7 +65,8 @@ class OpenAIFunctionsBrainPicking(BaseBrainPicking):
 
     @property
     def embeddings(self) -> OpenAIEmbeddings:
-        return OpenAIEmbeddings(openai_api_key=self.openai_api_key)
+        import os
+        return OpenAIEmbeddings(openai_api_key=self.openai_api_key, openai_api_base=os.environ["EMBEDDINGS_API_BASE"])
 
     @property
     def supabase_client(self) -> Client:

@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import Depends
-from langchain.embeddings.openai import OpenAIEmbeddings
+from open.text.embeddings.openai import OpenAIEmbeddings
 from pydantic import BaseSettings
 from supabase import Client, create_client
 from vectorstore.supabase import SupabaseVectorStore
@@ -23,7 +23,8 @@ class LLMSettings(BaseSettings):
 
 def common_dependencies() -> dict:
     settings = BrainSettings()
-    embeddings = OpenAIEmbeddings(openai_api_key=settings.openai_api_key)
+    import os
+    embeddings = OpenAIEmbeddings(openai_api_key=settings.openai_api_key, openai_api_base=os.environ["EMBEDDINGS_API_BASE"])
     supabase_client: Client = create_client(
         settings.supabase_url, settings.supabase_service_key
     )

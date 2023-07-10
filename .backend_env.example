@@ -14,3 +14,7 @@ PRIVATE=False
 MODEL_PATH=./local_models/ggml-gpt4all-j-v1.3-groovy.bin
 MODEL_N_CTX=1000
 MODEL_N_BATCH=8
+
+# OpenAI-compatible APIs of Private LLM and Embeddings
+OPENAI_API_BASE=https://base-url-of-completions-and-chat-completions/v1
+EMBEDDINGS_API_BASE=https://base-url-of-embeddings/v1
